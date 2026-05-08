@@ -4,6 +4,8 @@ node_modules/
 # Build outputs
 client/dist/
 server/dist/
+electron/dist/
+electron/release/
 
 # Environment variables
 .env

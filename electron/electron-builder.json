@@ -1,0 +1,30 @@
+{
+  "appId": "com.livestudio.app",
+  "productName": "LiveStudio",
+  "copyright": "Copyright © 2026 LiveStudio",
+  "directories": {
+    "output": "release",
+    "buildResources": "build"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "win": {
+    "target": [{ "target": "nsis", "arch": ["x64"] }],
+    "icon": "build/icon.png"
+  },
+  "mac": {
+    "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+    "icon": "build/icon.png",
+    "category": "public.app-category.music"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "shortcutName": "LiveStudio"
+  },
+  "dmg": {
+    "title": "LiveStudio"
+  }
+}
