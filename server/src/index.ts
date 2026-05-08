@@ -2,16 +2,27 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server, Socket } from 'socket.io';
 import cors from 'cors';
+import path from 'path';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 const app = express();
-app.use(cors());
+
+// In production the client is served from the same origin, so CORS is only
+// needed in dev (vite runs on a different port).
+if (!isProd) {
+  app.use(cors());
+}
+
+// Serve the built React client in production.
+if (isProd) {
+  const clientDist = path.resolve(__dirname, '../../client/dist');
+  app.use(express.static(clientDist));
+}
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: '*',
-    methods: ['GET', 'POST'],
-  },
+  cors: isProd ? {} : { origin: '*', methods: ['GET', 'POST'] },
 });
 
 // roomId -> Set of socket IDs
@@ -86,6 +97,14 @@ function leaveRoom(socket: Socket, roomId: string) {
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+
+// In production, let React Router handle all non-API routes.
+if (isProd) {
+  const clientDist = path.resolve(__dirname, '../../client/dist');
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT ?? 3001;
 httpServer.listen(PORT, () => {
