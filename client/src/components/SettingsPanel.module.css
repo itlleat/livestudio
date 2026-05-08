@@ -1,0 +1,180 @@
+.panel {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionHeader {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+.select:disabled {
+  opacity: 0.5;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.refreshBtn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-2);
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+.refreshBtn:hover {
+  color: var(--text);
+  border-color: #36365b;
+}
+
+.toggleOn,
+.toggleOff {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  padding: 2px;
+  border: 1px solid transparent;
+}
+
+.toggleOn {
+  background: var(--accent);
+}
+
+.toggleOff {
+  background: #2a2a42;
+}
+
+.knob {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translateX(0);
+  transition: transform 0.15s;
+}
+
+.toggleOn .knob {
+  transform: translateX(18px);
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+.dawGuideBtn {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dawGuideBtn:hover {
+  color: var(--text);
+  border-color: #36365b;
+}
+
+/* DAW connection indicator */
+.dawIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.dawDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-3);
+  transition: background 0.3s;
+}
+
+[data-status="no-device"] .dawDot {
+  background: var(--text-3);
+}
+
+[data-status="device-no-signal"] .dawDot {
+  background: #f59e0b;
+  box-shadow: 0 0 5px #f59e0b88;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+[data-status="device-signal"] .dawDot {
+  background: var(--success);
+  box-shadow: 0 0 6px #22c55e88;
+}
+
+.dawLabel {
+  font-size: 11px;
+  color: var(--text-3);
+  transition: color 0.3s;
+}
+
+[data-status="device-no-signal"] .dawLabel {
+  color: #f59e0b;
+}
+
+[data-status="device-signal"] .dawLabel {
+  color: var(--success);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
